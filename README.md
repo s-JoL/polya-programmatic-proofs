@@ -7,7 +7,7 @@ This release contains two results at different verification levels:
 | Result | Mathematical scope | Machine-checked scope |
 |---|---|---|
 | Twisted tensor Q2 torus / complete Q1 inverse compression | All integer sizes L≥1, real Bloch phases and 0<E≤8, assuming the full pencil is invertible | Exact three-minor factorizations, Bernstein identities and positivity on the entire cosine square, hence all real phases |
-| Third planar Dirichlet eigenvalue | Manuscript argument: |Ω|λ₃(Ω)>12π for every planar open set of finite positive area, multiplicities included | Exact/Arb B,T,S,N certificates and constants; Lean checks explicit rational interfaces, branch coverage and conditional selection logic |
+| Third planar Dirichlet eigenvalue | Manuscript argument: &#124;Ω&#124;λ₃(Ω)>12π for every planar open set of finite positive area, multiplicities included | Exact/Arb B,T,S,N certificates and constants; Lean checks explicit rational interfaces, branch coverage and conditional selection logic |
 
 The complete PDE theorem and complete finite-matrix inertia return are **not fully formalized in Lean**. The analytic arguments are in the manuscripts. The all-domain, all-k Pólya problem remains unsolved. No claim of priority or journal acceptance is made. AI assisted derivation, drafting and reconstruction; passing code alone does not establish the unformalized mathematical return.
 
