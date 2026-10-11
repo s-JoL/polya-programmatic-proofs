@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "name": "B-exact",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 0.7
+    },
+    {
+      "name": "B-negative",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 0.71
+    },
+    {
+      "name": "S-all-eight",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 387.11
+    },
+    {
+      "name": "S-negative",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 20.39
+    },
+    {
+      "name": "neck",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 0.31
+    },
+    {
+      "name": "neck-negative",
+      "returncode": 0,
+      "accepted": true,
+      "seconds": 0.31
+    },
+    {
+      "name": "T-0.0300",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "0.0009338058487853031",
+      "slack_c": "8.240319956465043e-05"
+    },
+    {
+      "name": "T-0.1000",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "0.00059833918878831",
+      "slack_c": "0.00040345845808968417"
+    },
+    {
+      "name": "T-0.1500",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "0.0001920193368883412",
+      "slack_c": "0.0002680052062114635"
+    },
+    {
+      "name": "T-0.1900",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "6.694312645707303e-05",
+      "slack_c": "0.0001277327401436721"
+    },
+    {
+      "name": "T-0.2100",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "2.8951036557351616e-05",
+      "slack_c": "5.317308038305909e-05"
+    },
+    {
+      "name": "T-0.2200",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "1.5828307134005665e-05",
+      "slack_c": "1.916009541404053e-05"
+    },
+    {
+      "name": "T-0.2250",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "1.190486862267315e-05",
+      "slack_c": "7.474806265702734e-06"
+    },
+    {
+      "name": "T-0.2270",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "1.0093296420925531e-05",
+      "slack_c": "1.1206340683556927e-06"
+    },
+    {
+      "name": "T-0.2280",
+      "accepted": true,
+      "fails": 0,
+      "slack_b": "9.741842800713364e-06",
+      "slack_c": "4.778810844460418e-07"
+    },
+    {
+      "name": "T-corrupted-node",
+      "accepted": true,
+      "fails": 1
+    }
+  ],
+  "shipped_inputs_unchanged": true,
+  "full_pde_formalization": false,
+  "original_problem_solved": false
+}

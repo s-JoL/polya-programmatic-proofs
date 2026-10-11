@@ -1,0 +1,7 @@
+.lake/
+.venv/
+build/
+__pycache__/
+*.olean
+*.ilean
+*.trace

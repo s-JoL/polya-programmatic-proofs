@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite this reproducible research companion."
+title: "Pólya-related programmatic proofs: a twisted Q2/Q1 torus lemma and a planar k=3 argument"
+type: software
+version: 0.1.0
+license: MIT
+date-released: 2026-10-11
+authors:
+  - name: s-JoL
+    website: https://github.com/s-JoL

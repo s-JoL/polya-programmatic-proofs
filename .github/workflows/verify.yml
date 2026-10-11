@@ -1,0 +1,23 @@
+name: Verify proof companion
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements.txt
+      - run: python scripts/check_torus_raw.py && python scripts/check_torus.py && python scripts/check_constants.py && python scripts/check_k3.py
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official elan
+        run: curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+      - run: echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: lake update && lake exe cache get && lake build
+      - run: python3 scripts/check_lean.py

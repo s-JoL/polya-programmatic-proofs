@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newcommand{\nminus}{n_{-}}
+\title{Programmatic proof companions for a twisted Q2/Q1 torus lemma\\a planar third-eigenvalue argument}
+\author{s-JoL}
+\date{Research preprint, 11 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We release exact and interval certificates, reproducible checkers, and precisely scoped Lean proofs for two P\'olya-related results. The first is an all-phase positivity certificate for the complete Q1 complement of a tensor Q2 pencil, with a handwritten Schur-complement return to inverse-compression inertia. The second is a computer-assisted argument for the strict third planar Dirichlet eigenvalue bound. The PDE reductions remain handwritten: the Lean module checks rational interfaces and conditional branch coverage. This is a research preprint and proof companion, with no priority or journal-acceptance claim. It does not solve the all-domain, all-index P\'olya conjecture.
+\end{abstract}
+\section{Verification boundary}
+The files \texttt{FullTorus.lean} and \texttt{K3Interfaces.lean} are intended to be checked with Lean 4.34.0 and mathlib commit \texttt{5ed2965256430c3649e86755f9576b54eca72435}. No custom mathematical axiom or incomplete proof is used. Standard foundational dependencies may include \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}. AI systems assisted derivation, drafting and reconstruction; responsibility for this release is attributed to the account s-JoL. Program exit codes establish only the explicitly stated checks.
+\section{The complete twisted-torus lemma}
+\begin{theorem}
+On an integer-side $L\geq1$ unit-cell tensor Q2 torus, allow arbitrary real Bloch twists. Write $A_E=K-EM$ and let $J$ contain all $L^2$ geometric coarse bilinear Q1 columns. For $0<E\leq8$, if the complete pencil $A_E$ is invertible, then
+\[
+ \nminus(J^*A_E^{-1}J)=\nminus(A_E),\qquad
+ \ker(J^*A_E^{-1}J)=\{0\}.
+\]
+All multiplicities are retained.
+\end{theorem}
+Here is the handwritten matrix return; only the polynomial identities and positivity step below are formalized in Lean. Put $z=e^{it}$, $c=\cos t$, $s=1+z$. Wrapping the three-node unit element gives
+\[
+ D=3K_1=\begin{pmatrix}14+2c&-8\bar s\\-8s&16\end{pmatrix},\quad
+ M_1^{\rm scaled}=15M_1=\begin{pmatrix}4-c&\bar s\\s&8\end{pmatrix}.
+\]
+In the following, $M$ means this scaled mass. Set $j=(1,s/2)^T$ and $g=(-\bar s/2,1)^T$. They are orthogonal and both have norm squared $(3+c)/2>0$. Direct multiplication gives
+\[
+ p(c)=j^*Mj=5(2+c),\quad q(c)=g^*Mg=(16-c-c^2)/2,
+\]
+\[
+ r(c)=j^*Dj=6(1-c),\quad v(c)=g^*Dg=c^2+24c+39.
+\]
+Also $j^*Mg=(5/2)\bar s$ and $j^*Dg=-3(1-c)\bar s$. In particular, the coefficient $24$ in $v$ is essential. The mass is positive definite because $4-c\geq3$ and $\det M=10(3-c)\geq20$.
+The scaled two-dimensional pencil is
+\[
+ 225A_E=5(D_y\otimes M_x+M_y\otimes D_x)-E(M_y\otimes M_x).
+\]
+Its complete Q1 complement is spanned by $j_y\otimes g_x$, $g_y\otimes j_x$, and $g_y\otimes g_x$. At $E=8$, write $x=\cos t_x$, $y=\cos t_y$, and define
+\begin{align*}
+ d_1&=5(r(y)q(x)+p(y)v(x))-8p(y)q(x),\\
+ d_2&=5(v(y)p(x)+q(y)r(x))-8q(y)p(x),\\
+ d_3&=5(v(y)q(x)+q(y)v(x))-8q(y)q(x),\\
+ u&=\tfrac{25}{2}(3(x+y)-10),\\
+ f&=\tfrac{25}{2}v(x)+(15y-35)q(x),\\
+ g_0&=\tfrac{25}{2}v(y)+(15x-35)q(y).
+\end{align*}
+The three leading principal minors are
+\begin{align*}
+ \Delta_1&=d_1,\\
+ \Delta_2&=d_1d_2-4(1+x)(1+y)u^2,\\
+ \Delta_3&=d_1d_2d_3+8(1+x)(1+y)ufg_0\\
+ &\quad-2(1+x)d_1g_0^2-2(1+y)d_2f^2
+       -4(1+x)(1+y)d_3u^2.
+\end{align*}
+The exact Laurent checker starts from the raw element matrices, computes adjoints and permutation determinants, verifies separate phase-inversion symmetries, and checks both Laurent-to-cosine and Bernstein-to-power roundtrips. It agrees with a second checker based on these factored formulas.
+\begin{proposition}[Lean polynomial core]
+For every $x,y\in[-1,1]$, all three $\Delta_i(x,y)$ are strictly positive. Consequently they are positive for every pair of real phases.
+\end{proposition}
+Indeed, substitute $x=2a-1$, $y=2b-1$. The tensor Bernstein coefficients have bidegrees $(2,1)$, $(3,3)$, and $(5,5)$ and minimum values $240$, $313600$, and $240844800$, respectively. The 58 coefficients are exact rationals. Bernstein basis functions are nonnegative on $[0,1]^2$ and sum to one, so each polynomial is at least its strictly positive minimum coefficient. Lean verifies the factorizations, expansion identities, and this positivity argument with real quantification, rather than phase sampling.
+
+Sylvester's criterion gives strict positivity of the complete complement at $E=8$. Positive mass gives the same conclusion for $E\leq8$. Finite twisted Fourier decomposition applies these fibers to all coarse columns. In an orthonormal coarse/complement basis, write
+\[
+ U^*A_EU=\begin{pmatrix}H&B^*\\B&C\end{pmatrix},\qquad C>0,
+ \qquad S=H-B^*C^{-1}B.
+\]
+An invertible triangular congruence reduces this matrix to $\operatorname{diag}(S,C)$. Therefore $\nminus(A_E)=\nminus(S)$. Invertibility of $A_E$ implies invertibility of $S$, and the coarse block of $U^*A_E^{-1}U$ is $S^{-1}$. For $J=U_0R$ with $R$ invertible, the compression is $R^*S^{-1}R$, proving both assertions. This classical Schur-inertia argument is not a claim of novelty. It does not address geometry-restricted forbidden coordinates or a continuum actual-area budget.
+\section{The planar third-eigenvalue manuscript}
+The accompanying Chinese manuscript presents the computer-assisted argument
+\[
+ |\Omega|\lambda_3(\Omega)>12\pi
+\]
+for every planar open set of finite positive area, with the full Dirichlet spectrum ordered with multiplicity. Unbounded, disconnected, and multiply connected sets are included in its stated analytic scope. The full analytic exposition and classical assumptions are in \texttt{paper/k3.md}, \texttt{paper/certificate-criteria.md}, and \texttt{paper/classical-inputs.md}.
+
+Normalize $|\Omega|=1$ and put
+\[
+ \Lambda=12\pi,\quad \tau=9/20,\quad m=1141/5000,\quad a=519/2000.
+\]
+The two main analytic inputs are:
+\begin{enumerate}
+\item[(A)] An even lower-semicontinuous profile $c$ with $\int_0^\tau c\leq m$ and $\int_0^\infty c\leq a$ has Steiner-domain first eigenvalue strictly larger than $\Lambda$.
+\item[(B)] The two-kernel one-dimensional profile criterion gives a bound at least $377/10$ when half-mass is at most $1/2$ and excess outside width $9/10$ is below the certified value $0.0879293473\ldots$.
+\end{enumerate}
+These inputs require the full analytical criteria; they are not established merely by this summary. The exact B certificate, nine Arb T boxes, eight Arb S slices, and neck certificate supply their numerical gates. The A conclusion is $>12\pi$, not a claimed uniform lower bound $37.7$: the S gate uses $\sigma'_{12\pi}$ under the contradiction hypothesis $\lambda\leq12\pi$.
+
+For an area bisector, reflect each side evenly. If a side has second even eigenvalue at most $\Lambda$, its two disjoint kernels, Faber--Krahn, and Steiner rearrangement give each kernel half-mass below $a$. By the contrapositive of A, the side has near-line strip mass $q>2m$. A median gap is handled directly by Faber--Krahn. Otherwise continuous area bisectors and an odd-function zero yield a direction whose two near-line masses agree, say at $Q$. If $Q\leq2m$, both sides are good. If $Q>2m$, the mass outside the width-$2\tau$ strip is below
+\[
+ 1-4m=0.0872<0.0879293.
+\]
+The perpendicular bisector and B make both sides good. Neumann bracketing then gives $\lambda_3>\Lambda$. Regularity, multiplicities, traces, rearrangements, and certificate sufficiency are dealt with in the analytic manuscript.
+
+\texttt{K3Interfaces.lean} checks $12\pi<377/10$, exact parameter relations, small/large strip selection and complete four-gate coverage. Its analytic gates are explicit hypotheses. It does not define planar domains, the Dirichlet operator, or the unconditional PDE theorem. The B/T/S/N programs perform exact/interval numerical checks, not a Lean formalization of spectral analysis.
+\section{Reproducibility and negative controls}
+The release fixes dependencies and provides \texttt{scripts/verify.sh}. Inputs are preserved; generated logs go to ignored scratch space. Negative controls raise the B, S, and neck targets, corrupt a T node, alter a Bernstein coefficient, and ask Lean to prove the false bound $241\leq\Delta_1(-1,1)$ (the actual value is $240$). These must be rejected.
+
+Some classical textbook references remain explicitly marked as chapter-level checks. No exhaustive novelty review, external peer review, journal acceptance, or solution of the general P\'olya problem is claimed.
+\begin{thebibliography}{9}
+\bibitem{haynsworth} E.~V.~Haynsworth, Determination of the inertia of a partitioned Hermitian matrix, \emph{Linear Algebra Appl.} 1 (1968), 73--81. \url{https://doi.org/10.1016/0024-3795(68)90050-5}.
+\bibitem{balls} N.~Filonov, M.~Levitin, I.~Polterovich and D.~A.~Sher, P\'olya's conjecture for Euclidean balls, \emph{Inventiones mathematicae} (2023). \url{https://arxiv.org/abs/2203.07696}.
+\bibitem{lean} Lean 4.34.0 and mathlib 4.34.0. \url{https://github.com/leanprover/lean4}; \url{https://github.com/leanprover-community/mathlib4}.
+\end{thebibliography}
+\end{document}

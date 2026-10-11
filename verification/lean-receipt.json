@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "fresh_kernel_checks": true,
+  "records": [
+    {
+      "module": "FullTorus",
+      "sha256": "dbfe22f3033433c7bbec58a303ce3f61742987a5fb16245ff984f29e8e38953e",
+      "axioms": [
+        "'PolyaAudit.minor1_positive' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.minor2_positive' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.minor3_positive' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.minor1_factored' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.minor2_factored' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.minor3_factored' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.all_real_phases' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "module": "K3Interfaces",
+      "sha256": "52381b09d6571cc213529a2ea621d4e7300b53bc273558bf46a19c3a3e45cea9",
+      "axioms": [
+        "'PolyaAudit.spectral_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.rational_interfaces' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.select_cut' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.A_from_four_gates' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'PolyaAudit.schur_square' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    }
+  ],
+  "negative_control_rejected": true,
+  "full_pde_formalization": false
+}
