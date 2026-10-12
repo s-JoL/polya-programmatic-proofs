@@ -17,7 +17,7 @@
     },
     {
       "module": "K3Interfaces",
-      "sha256": "52381b09d6571cc213529a2ea621d4e7300b53bc273558bf46a19c3a3e45cea9",
+      "sha256": "daf949690a6469891f0954b019103b387fba299255c65ac405d1bcbdd2f69781",
       "axioms": [
         "'PolyaAudit.spectral_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]",
         "'PolyaAudit.rational_interfaces' depends on axioms: [propext, Classical.choice, Quot.sound]",

@@ -30,12 +30,11 @@ The toolchain is fixed at Lean 4.34.0 and mathlib at commit `5ed2965256430c3649e
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-lake update
 lake exe cache get
 bash scripts/verify.sh
 ```
 
-The k=3 replay takes several minutes; allow roughly 8 GiB address-space budget for Lean and sufficient disk space for mathlib. Verification writes only to ignored `build/` scratch space and never regenerates shipped certificate inputs. B and the torus checker use exact rational arithmetic; T/S/N use Arb interval arithmetic through python-flint, not a libm error assumption. All gates have negative controls, including a corrupted T node and a false Lean lower bound.
+Do not run `lake update`: `lake-manifest.json` already pins every dependency, and `lake update` rewrites the manifest so that `SHA256SUMS` no longer matches. If the mathlib cache is unreachable, `lake build` compiles the needed part of mathlib from source (slow but equivalent). The k=3 replay takes several minutes; allow roughly 8 GiB address-space budget for Lean and sufficient disk space for mathlib. Verification writes only to ignored `build/` scratch space and never regenerates shipped certificate inputs. B and the torus checker use exact rational arithmetic; T/S/N use Arb interval arithmetic through python-flint, not a libm error assumption. All gates have negative controls, including a corrupted T node and a false Lean lower bound.
 
 `lake build` builds the two public Lean modules. `scripts/check_lean.py` additionally recompiles each source and audits the printed axioms. Standard Lean axioms `propext`, `Classical.choice`, `Quot.sound` may occur; no custom mathematical axiom or sorry is used.
 

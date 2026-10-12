@@ -101,7 +101,7 @@ The identity t^i=sum_{k>=i}[binom(k,i)/binom(n,i)] B_k^n(t) follows directly fro
 | Delta2 | (3,3) | 313600 |
 | Delta3 | (5,5) | 240844800 |
 
-All coefficients, including all 36 determinant coefficients, are retained in full in `fulltorus-independent-check.json`, together with every cosine power coefficient. For example the directly derived first minor is
+All coefficients, including all 36 determinant coefficients, are retained in full in `certificates/torus.json`, together with every cosine power coefficient. For example the directly derived first minor is
 
     Delta1 = 1550+415y+1225x+635xy+75x²+60x²y,
 
@@ -160,4 +160,4 @@ For real periodic/antiperiodic data the matrix may also be regarded as a real sy
 
 The complement positivity does not need invertibility. At a singular Fourier fiber, the same congruence reduces that fiber to diag(s,C) with scalar s=0 and C>0. Its nullity is exactly one and its negative index is zero. An acoustic equality is consequently a zero mode; it does not introduce an extra strict negative eigenvalue in that fiber. Several distinct singular fibers contribute one kernel dimension each, solely because they are distinct orthogonal blocks. The full A is singular if and only if at least one block is singular. At such E the ordinary A^{-1} and its compression are undefined; no claim about a Moore-Penrose inverse, limiting compression, or closed-count equality has been established here.
 
-The earlier SymPy import failure is infrastructure, not mathematical evidence against positivity. This reconstruction did not inspect that failed job or replay either author job. It independently ran the standard-library checker once. Correcting the 24c term and computing the exact full determinant is mathematically consequential; treating an import failure as a negative result is not.
+The coefficient 24c in v is essential: the variant c²+8c+39 is wrong (Section 1), and the positivity certificate is computed from the exact full determinant, not from that variant.
